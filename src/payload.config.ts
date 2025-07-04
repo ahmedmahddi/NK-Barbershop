@@ -13,12 +13,12 @@ import { Services } from "./collections/Services";
 import { Team } from "./collections/Team";
 import Schedule from "./collections/Schedule";
 import { Bookings } from "./collections/Booking";
-
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_PAYLOAD_AUTH_URL as string,
+
   admin: {
     user: Users.slug,
     importMap: {

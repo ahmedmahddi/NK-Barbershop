@@ -16,13 +16,11 @@ export const Users: CollectionConfig = {
     {
       name: "firstName",
       required: true,
-
       type: "text",
     },
     {
       name: "lastName",
       required: true,
-
       type: "text",
     },
     {
@@ -41,5 +39,6 @@ export const Users: CollectionConfig = {
       options: ["super-admin", "user"],
     },
   ],
+  
   timestamps: true,
 };

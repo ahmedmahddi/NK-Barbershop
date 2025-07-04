@@ -47,14 +47,14 @@ const PricingModal: React.FC<{
         <p className="text-zinc-400 mb-6">{service.description}</p>
         <div className="bg-gradient-to-br from-zinc-800 to-zinc-900 p-6 rounded-xl">
           <div className="flex justify-between items-center mb-4">
-            <span className="text-zinc-400">Service Price</span>
+            <span className="text-zinc-400">Prix du service</span>
             <span className="text-2xl font-bold text-gold-400">
               TND {service.price}
             </span>
           </div>
           <div className="space-y-2 text-sm text-zinc-400">
-            <p>✓ Professional consultation</p>
-            <p>✓ Premium products used</p>
+            <p>✓ Consultation professionnelle</p>
+            <p>✓ Produits premium utilisés</p>
           </div>
         </div>
         <div className="mt-6 space-y-3">
@@ -62,17 +62,17 @@ const PricingModal: React.FC<{
             className="bg-gradient-to-br from-gold-400 to-gold-500 hover:from-gold-500 hover:to-gold-600 text-white w-full !rounded-button shadow-gold"
             onClick={() => {
               onClose();
-              // You can add booking logic here if needed
+              // Vous pouvez ajouter la logique de réservation ici si nécessaire
             }}
           >
-            Book Now
+            Réserver maintenant
           </Button>
           <Button
             variant="link"
             className="text-zinc-400 hover:text-gold-400 w-full"
             onClick={onClose}
           >
-            Close
+            Fermer
           </Button>
         </div>
       </div>
@@ -111,13 +111,13 @@ const ServiceCard: React.FC<{
             className="text-white hover:text-gold-400 w-full border border-zinc-700 backdrop-blur-sm hover:border-gold-400 transition-all !rounded-button"
             onClick={() => onSeePricing(service)}
           >
-            See pricing
+            Voir les prix
           </Button>
           <Button
             className="bg-gradient-to-br from-gold-400 to-gold-500 hover:from-gold-500 hover:to-gold-600 text-white w-full !rounded-button shadow-gold"
             onClick={() => onBookNow(service.id)}
           >
-            Book now
+            Réserver maintenant
           </Button>
         </div>
       </div>
@@ -137,8 +137,8 @@ const Services = () => {
   );
 
   const handleBookNow = (serviceId: string) => {
-    // Handle booking logic here
-    console.log(`Booking service: ${serviceId}`);
+    // Gérer la logique de réservation ici
+    console.log(`Réservation du service : ${serviceId}`);
   };
 
   const handleSeePricing = (service: ServiceItem) => {
@@ -151,12 +151,12 @@ const Services = () => {
         <div className="flex items-center mb-8 sm:mb-12">
           <div className="w-8 sm:w-12 h-1 bg-gold-400 mr-2 sm:mr-4"></div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-wider">
-            SERVICES WE PROVIDE
+            NOS SERVICES
           </h2>
           <Link href="/services" className="ml-auto">
             <Button
               variant="ghost"
-              className="text-gold-400 hover:text-gold-500"
+              className="text-gold-400 hover:text-gold-500 cursor-pointer"
             >
               <ArrowRightIcon className="text-2xl" />
             </Button>

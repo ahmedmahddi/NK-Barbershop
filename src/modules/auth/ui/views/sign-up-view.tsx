@@ -37,10 +37,11 @@ export const SignUpView = () => {
     trpc.auth.register.mutationOptions({
       onError: error => {
         toast.error(error.message);
+        console.log(error.message);
       },
       onSuccess: async () => {
         await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
-        router.push("/");
+        router.push("/dashboard");
       },
     })
   );
@@ -136,7 +137,7 @@ export const SignUpView = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-base tracking-wider bg-gradient-to-br from-white via-gold-200 to-white bg-clip-text text-transparent">
-                    Nom et Prénom
+                    Nom
                   </FormLabel>
                   <FormControl>
                     <Input

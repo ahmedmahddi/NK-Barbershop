@@ -10,7 +10,7 @@ const Gallery = () => {
         <div className="flex items-center mb-8 sm:mb-12">
           <div className="w-8 sm:w-12 h-1 bg-gold-400 mr-2 sm:mr-4"></div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-wider uppercase">
-            Gallery for Inspiration
+            Galerie pour inspiration
           </h2>
           <Button
             variant="ghost"

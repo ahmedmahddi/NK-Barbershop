@@ -2,21 +2,26 @@ import { baseProcedure, createTRPCRouter } from "@/trpc/init";
 import { z } from "zod";
 import { parseDuration } from "@/lib/utils";
 import { computeFreeSlots } from "@/lib/computeFreeSlots";
-import { Service, Team } from "@/payload-types";
+import { Media, Service } from "@/payload-types";
 import { toZonedTime, fromZonedTime } from "date-fns-tz";
+import { emailService } from "@/lib/emailService";
 
 const n = (id: string | number) => Number(id);
 const TUNIS_TZ = "Africa/Tunis";
+const updateStatusInput = z.object({
+  id: z.string(),
+  status: z.enum(["pending", "confirmed", "cancelled", "completed", "no_show"]),
+});
 
 export const bookingRouter = createTRPCRouter({
   getServices: baseProcedure.query(async ({ ctx }) => {
     const res = await ctx.db.find({ collection: "services", depth: 0 });
-    return res.docs as Service[];
+    return res.docs;
   }),
 
   getBarbers: baseProcedure.query(async ({ ctx }) => {
     const res = await ctx.db.find({ collection: "team", depth: 0 });
-    return res.docs as Team[];
+    return res.docs;
   }),
 
   getAvailableSlots: baseProcedure
@@ -116,12 +121,112 @@ export const bookingRouter = createTRPCRouter({
           const err = error as { code?: string; message?: string };
           if (
             err.code === "DUPLICATE_KEY" ||
-            (err.message && err.message.includes("duplicate"))
+            err.message?.includes("duplicate")
           ) {
             throw new Error("Selected slot is no longer available");
           }
         }
         throw error;
+      }
+    }),
+  getAll: baseProcedure.query(async ({ ctx }) => {
+    const bookings = await ctx.db.find({
+      collection: "bookings",
+      depth: 3,
+      sort: "-start",
+    });
+
+    return bookings.docs.map(booking => ({
+      id: booking.id,
+      customerName: booking.customerName,
+      customerEmail: booking.customerEmail,
+      phone: booking.phone,
+      service: booking.service,
+      price: (booking.service as Service).price ?? null,
+
+      barber: booking.barber,
+      start: booking.start,
+      end: booking.end,
+      comments: booking.comments ?? "",
+      referencePhoto: booking.referencePhoto
+        ? (booking.referencePhoto as Media).url
+        : "",
+      status: booking.status as
+        | "pending"
+        | "confirmed"
+        | "cancelled"
+        | "completed"
+        | "no_show",
+      agreement: booking.agreement,
+      createdAt: booking.createdAt,
+      updatedAt: booking.updatedAt,
+    }));
+  }),
+  updateStatus: baseProcedure
+    .input(updateStatusInput)
+    .mutation(async ({ ctx, input }) => {
+      const { id, status } = input;
+      try {
+        const updatedBooking = await ctx.db.update({
+          collection: "bookings",
+          id,
+          data: { status },
+          depth: 3,
+        });
+        return {
+          id: updatedBooking.id,
+          customerName: updatedBooking.customerName,
+          customerEmail: updatedBooking.customerEmail,
+          phone: updatedBooking.phone,
+          service: updatedBooking.service,
+          barber: updatedBooking.barber,
+          start: updatedBooking.start,
+          end: updatedBooking.end,
+          comments: updatedBooking.comments ?? "",
+          referencePhoto: updatedBooking.referencePhoto
+            ? (updatedBooking.referencePhoto as Media).url
+            : "",
+          status: updatedBooking.status as
+            | "pending"
+            | "confirmed"
+            | "cancelled"
+            | "completed"
+            | "no_show",
+          agreement: updatedBooking.agreement,
+          createdAt: updatedBooking.createdAt,
+          updatedAt: updatedBooking.updatedAt,
+        };
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        throw new Error(`Failed to update booking status: ${message}`);
+      }
+    }),
+  sendBookingConfirmation: baseProcedure
+    .input(
+      z.object({
+        bookingId: z.string(),
+        to: z.string().email(),
+        from: z.string().email(),
+        subject: z.string(),
+        text: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      try {
+        console.log("Attempting to send email to:", input.to);
+
+        const result = await emailService.sendBookingConfirmation(
+          input.bookingId,
+          input.to
+        );
+
+        console.log("Email sent successfully:", result);
+        return result;
+      } catch (error) {
+        console.error("Email sending failed:", error);
+        throw new Error(
+          `Email sending failed: ${error instanceof Error ? error.message : String(error)}`
+        );
       }
     }),
 });

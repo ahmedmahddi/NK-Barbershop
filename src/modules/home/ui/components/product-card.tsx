@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             className="bg-gradient-to-br from-gold-400 to-gold-500 hover:from-gold-500 hover:to-gold-600 text-white !rounded-button shadow-gold"
           >
             <ShoppingBagIcon className="mr-2" />
-            Add to Cart
+            Ajouter
           </Button>
         </div>
       </div>

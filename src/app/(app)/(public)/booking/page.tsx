@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
@@ -34,7 +33,7 @@ import { uploadReference } from "@/lib/uploadRefrence";
 
 export default function BookingPage() {
   /* —— hooks —— */
-  const router = useRouter();
+
   const { toast } = useToast();
   const [date, setDate] = useState<Date>();
 
@@ -76,11 +75,42 @@ export default function BookingPage() {
   );
 
   /* —— mutation —— */
+  const sendEmail = useMutation(
+    trpc.booking.sendBookingConfirmation.mutationOptions()
+  );
   const createM = useMutation(
     trpc.booking.createBooking.mutationOptions({
-      onSuccess: ({ id }) => {
-        toast({ title: "Réservé 🎉", description: "Confirmation envoyée !" });
-        router.push(`/booking/confirm/${id}`);
+      onSuccess: async ({ id }) => {
+        try {
+          // Get customer email from form values
+          const customerEmail = watch("customerEmail");
+          if (!customerEmail) {
+            throw new Error("Customer email is required");
+          }
+
+          // Call the sendBookingConfirmation mutation
+          await sendEmail.mutateAsync({
+            bookingId: String(id),
+            to: customerEmail,
+            from: "naimkchaobarbershop@gmail.com",
+            subject: "Confirmation de votre réservation",
+            text: `Votre réservation (ID: ${id}) a été confirmée ! Merci de choisir Naim Kchao Barbershop.`,
+          });
+
+          toast({
+            title: "Réservé 🎉",
+            description: "Confirmation envoyée par email !",
+          });
+        } catch (error) {
+          toast({
+            title: "Échec de l'envoi de l'email",
+            description:
+              error instanceof Error
+                ? error.message
+                : "Une erreur s'est produite lors de l'envoi de l'email",
+            variant: "destructive",
+          });
+        }
       },
       onError: err =>
         toast({

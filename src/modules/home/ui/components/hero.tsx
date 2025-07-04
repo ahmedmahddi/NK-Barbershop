@@ -219,18 +219,18 @@ const Hero: React.FC<GridDistortionProps> = ({
 
       {/* Overlay HTML */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4 pointer-events-none z-10 text-center">
-        {/* Main Headline */}
+        {/* Titre principal */}
         <h1 className="text-white/90 text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-2 pointer-events-auto">
-          <span className="block">Experience True</span>
+          <span className="block">Découvrez la véritable</span>
           <span className="block bg-gradient-to-r from-white via-gold-200 to-white bg-clip-text text-transparent">
-            ELEGANCE
+            ÉLÉGANCE
           </span>
           <span className="block text-2xl sm:text-lg md:text-2xl font-light text-white/80 mt-2">
-            where style meets sophistication
+            là où le style rencontre la sophistication
           </span>
         </h1>
 
-        {/* Stats & CTA */}
+        {/* Statistiques & CTA */}
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center pointer-events-auto">
           <Link
             href="/booking"
@@ -238,8 +238,7 @@ const Hero: React.FC<GridDistortionProps> = ({
             className="flex flex-col items-center justify-center bg-zinc-900/80 border border-gold-400 rounded-full
                w-24 h-24 sm:w-24 sm:h-24 md:w-28 md:h-28 hover:scale-105 transition-transform pointer-events-auto"
           >
-            <span className="text-gold-400 font-bold">BOOK</span>
-            <span className="text-gold-400 font-bold">NOW!</span>
+            <span className="text-gold-400 font-bold">RÉSERVEZ!</span>
           </Link>
 
           <div
@@ -248,9 +247,9 @@ const Hero: React.FC<GridDistortionProps> = ({
           >
             <div className="text-white font-bold text-xl">10+</div>
             <div className="text-zinc-400 text-xs leading-tight">
-              YEARS OF
+              ANNÉES
               <br />
-              EXCELLENCE
+              D&apos;EXCELLENCE
             </div>
           </div>
 
@@ -260,9 +259,9 @@ const Hero: React.FC<GridDistortionProps> = ({
           >
             <div className="text-white font-bold text-lg">15+</div>
             <div className="text-zinc-400 text-xs leading-tight">
-              MASTER
+              MAÎTRES
               <br />
-              STYLISTS
+              STYLISTES
             </div>
           </div>
 
@@ -272,16 +271,16 @@ const Hero: React.FC<GridDistortionProps> = ({
           >
             <div className="text-white font-bold text-lg">500+</div>
             <div className="text-zinc-400 text-xs leading-tight">
-              ELITE
+              CLIENTÈLE
               <br />
-              CLIENTELE
+              D&apos;ÉLITE
             </div>
           </div>
         </div>
 
-        {/* Tagline */}
+        {/* Slogan */}
         <p className="mt-8 text-zinc-400 font-light text-xl pointer-events-auto">
-          crafting excellence since{" "}
+          façonner l&apos;excellence depuis{" "}
           <span className="text-gold-400 font-bold text-xl">2013</span>
         </p>
       </div>
