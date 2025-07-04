@@ -65,6 +65,7 @@ interface BarberFormData {
 }
 
 // ───────────── composant ─────────────
+
 const BarbersPage: FC = () => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
