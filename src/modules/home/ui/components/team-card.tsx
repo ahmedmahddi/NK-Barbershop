@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { StarIcon } from "lucide-react";
 import React from "react";
 import Link from "next/link"; // Added for client-side navigation
+import Image from "next/image";
 
 export interface TeamCardProps {
   image: string;
@@ -33,7 +34,9 @@ const TeamCard: React.FC<TeamCardProps> = ({
           </div>
         </div>
         <div className="relative overflow-hidden">
-          <img
+          <Image
+            width={1024}
+            height={1024}
             src={image}
             alt={alt}
             className="w-full h-[500px] object-cover object-center transform transition-transform group-hover:scale-105"

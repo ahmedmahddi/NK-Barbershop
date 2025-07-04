@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { toast } from "sonner";
+import Image from "next/image";
 
 // ----- Types -----
 type BookingStatus =
@@ -142,7 +143,9 @@ const AppointmentsPage: FC = () => {
                     <td className="p-4">{`${formattedDate} – ${formattedTime}`}</td>
                     <td className="p-4">
                       {booking.referencePhoto ? (
-                        <img
+                        <Image
+                          width={64}
+                          height={64}
                           src={booking.referencePhoto}
                           alt="Reference"
                           className="h-16 w-16 object-cover rounded-md"
@@ -160,7 +163,7 @@ const AppointmentsPage: FC = () => {
                     <td className="p-4">
                       <select
                         value={booking.status}
-                        onChange={(e) =>
+                        onChange={e =>
                           updateStatus.mutate({
                             id: booking.id.toString(),
                             status: e.target.value as BookingStatus,

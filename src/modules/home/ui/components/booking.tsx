@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const Booking = () => {
   // —— hooks ——
@@ -351,7 +352,8 @@ const Booking = () => {
                 {previewUrl ? (
                   <div className="w-full h-full relative flex flex-col items-center">
                     <div className="relative w-full h-[200px] mb-4">
-                      <img
+                      <Image
+                        fill
                         src={previewUrl}
                         alt="Aperçu"
                         className="w-full h-full object-contain rounded"

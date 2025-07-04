@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -8,6 +9,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "Salon Naim Kchao | Coiffures et Soins à Sfax",
+  icons: "/images/logoNK.png",
   description:
     "Visitez le Salon Naim Kchao à Sfax pour des coiffures expertes, des tailles de barbe et des services de soin haut de gamme. Réservez votre rendez-vous aujourd'hui !",
   keywords: [

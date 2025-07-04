@@ -1,12 +1,12 @@
-
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 
 interface ServiceItem {
   name: string;
   slug: string;
   description: string;
-  image: string | React.ReactNode;
+  image: string;
   price: number;
   duration: string;
 }
@@ -27,16 +27,14 @@ const ServiceCard = ({
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,_rgba(251,146,60,0.1),_transparent_70%)] opacity-30"></div>
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-br from-transparent via-gold-400 to-transparent opacity-50"></div>
       <div className="relative">
-        <div className="relative mb-4 rounded-xl overflow-hidden group-hover:shadow Selena">
-          {typeof service.image === "string" ? (
-            <img
-              src={service.image}
-              alt={service.name}
-              className="w-full h-64 object-cover object-center rounded-xl transform transition-transform group-hover:scale-105"
-            />
-          ) : (
-            service.image
-          )}
+        <div className="relative mb-6 rounded-xl overflow-hidden group-hover:shadow-gold">
+          <Image
+            src={service.image}
+            alt={service.name}
+            className="w-full h-64 object-cover object-center rounded-xl transform transition-transform group-hover:scale-105"
+            width={240}
+            height={256}
+          />
         </div>
         <h3 className="text-xl font-bold mb-2 bg-gradient-to-br from-white via-gold-200 to-white bg-clip-text text-transparent text-center">
           {service.name}

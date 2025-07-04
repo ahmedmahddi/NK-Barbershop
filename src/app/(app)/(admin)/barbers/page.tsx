@@ -75,9 +75,8 @@ const BarbersPage: FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedBarber, setSelectedBarber] = useState<Barber | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null); // État pour la prévisualisation de l'image
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedFile, setSelectedFile] = useState<File | null>(null); // État pour le fichier sélectionné
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   // États du formulaire
   const [formData, setFormData] = useState<BarberFormData>({

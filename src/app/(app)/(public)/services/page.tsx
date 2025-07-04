@@ -22,23 +22,18 @@ interface ServiceItem {
   name: string;
   slug: string;
   description: string;
-  image: string | React.ReactNode;
+  image: string;
   price: number;
   duration: string;
 }
 
-interface ServicesPageProps {
-  slug?: string;
-}
-
-export default function ServicesPage({ slug }: ServicesPageProps) {
+export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(
     null
   );
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(
     trpc.services.getMany.queryOptions({
-      slug,
       limit: 100,
     })
   );
@@ -86,9 +81,7 @@ export default function ServicesPage({ slug }: ServicesPageProps) {
                       image:
                         typeof service.image === "string"
                           ? service.image
-                          : React.isValidElement(service.image)
-                            ? service.image
-                            : null,
+                          : (service.image?.url ?? ""),
                     }}
                     onBookNow={handleBookNow}
                     onSeePricing={handleSeePricing}

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingBagIcon } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 interface ProductCardProps {
@@ -23,7 +24,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="p-6">
         <div className="relative mb-6 rounded-xl overflow-hidden group-hover:shadow-gold">
           <div className="absolute inset-0 bg-gradient-to-br from-gold-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <img
+          <Image
+            width={1024}
+            height={1024}
             src={image}
             alt={alt}
             className="w-full h-64 object-cover object-center rounded-xl transform transition-transform group-hover:scale-105"

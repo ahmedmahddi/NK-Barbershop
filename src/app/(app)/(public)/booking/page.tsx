@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { uploadReference } from "@/lib/uploadRefrence";
+import Image from "next/image";
 
 export default function BookingPage() {
   /* —— hooks —— */
@@ -142,7 +143,7 @@ export default function BookingPage() {
 
   // File upload preview logic
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -455,7 +456,8 @@ export default function BookingPage() {
                   {previewUrl ? (
                     <div className="w-full h-full relative flex flex-col items-center">
                       <div className="relative w-full h-[200px] mb-4">
-                        <img
+                        <Image
+                          fill
                           src={previewUrl}
                           alt="Aperçu du style"
                           className="w-full h-full object-contain rounded"

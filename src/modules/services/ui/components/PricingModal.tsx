@@ -63,14 +63,14 @@ const PricingModal = ({ service, onClose }: PricingModalProps) => {
         </div>
         <div className="mt-6 space-y-3">
           <Link href="/booking">
-            <Button className="bg-gradient-to-br from-gold-400 to-gold-500 hover:from-gold-500 hover:to-gold-600 text-white w-full !rounded-button shadow-gold">
+            <Button className="bg-gradient-to-br mb-2 from-gold-400 to-gold-500 hover:from-gold-500 hover:to-gold-600 text-white w-full rounded-2xl shadow-gold">
               <CalendarIcon className="mr-2" />
               Réserver maintenant
             </Button>
           </Link>
           <Button
             variant="outline"
-            className="text-zinc-400 hover:text-gold-400 w-full border-zinc-700 hover:border-gold-400"
+            className="text-zinc-400 hover:text-gold-400 w-full rounded-2xl border-zinc-700 hover:border-gold-400"
             onClick={onClose}
           >
             Fermer
