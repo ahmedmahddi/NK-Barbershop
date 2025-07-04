@@ -86,16 +86,27 @@ export const authRouter = createTRPCRouter({
         password: input.password,
       },
     });
-    if (!data.token) {
+
+    if (!data.token || !data.user) {
       throw new TRPCError({
         code: "UNAUTHORIZED",
-        message: "Failed to login",
+        message: "Invalid email or password",
       });
     }
+
+    // Check if user has super-admin role
+    if (!data.user.roles?.includes("super-admin")) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "Access denied: Super-admin privileges required",
+      });
+    }
+
     await generateAuthCookie({
       prefix: ctx.db.config.cookiePrefix,
       value: data.token,
     });
-    return data;
+
+    return { user: data.user, token: data.token };
   }),
 });

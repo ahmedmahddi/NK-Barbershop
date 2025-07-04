@@ -22,34 +22,34 @@ export const Footer = () => {
               Naim Kchao<span className="text-white"> Barbershop</span>
             </h1>
             <p className="text-zinc-400 mb-1">
-              Your premium destination for stylish grooming
+              Votre destination de choix pour des soins personnels élégants
             </p>
             <div className="py-4">
               <div className="flex flex-row text-zinc-400 text-sm items-center">
                 <MapIcon className="mr-2 text-gold-400 size-4" />
-                <span>123 Style Street, Downtown, NY 10001</span>
+                <span>Rte du Kaïd Mhamed Km3, Sfax</span>
               </div>
               <div className="flex flex-row text-zinc-400 text-sm items-center mt-1">
                 <PhoneIcon className="mr-2 text-gold-400 size-4" />
-                <span>+1 (555) 123-4567</span>
+                <span>+216 20 401 600</span>
               </div>
               <div className="flex flex-row text-zinc-400 text-sm items-center mt-1">
                 <MailIcon className="mr-2 text-gold-400 size-4" />
-                <span>info@barberino.com</span>
+                <span>naimkchaobarbershop@gmail.com</span>
               </div>
             </div>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4 bg-gradient-to-br from-white via-gold-200 to-white bg-clip-text text-transparent">
-              HOURS
+              HORAIRES
             </h3>
-            <p className="text-zinc-400 mb-2">Monday - Friday: 9AM - 8PM</p>
-            <p className="text-zinc-400 mb-2">Saturday: 10AM - 6PM</p>
-            <p className="text-zinc-400 mb-2">Sunday: 10AM - 4PM</p>
+            <p className="text-zinc-400 mb-2">
+              Lundi - Dimanche : 10:30h - 16:30h
+            </p>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4 bg-gradient-to-br from-white via-gold-200 to-white bg-clip-text text-transparent">
-              LINKS
+              LIENS
             </h3>
             <ul className="space-y-2">
               <li>
@@ -57,12 +57,12 @@ export const Footer = () => {
                   href="/"
                   className="text-zinc-400 hover:text-gold-400 cursor-pointer transition-colors"
                 >
-                  Home
+                  Accueil
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/services"
                   className="text-zinc-400 hover:text-gold-400 cursor-pointer transition-colors"
                 >
                   Services
@@ -70,26 +70,26 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/gallery"
                   className="text-zinc-400 hover:text-gold-400 cursor-pointer transition-colors"
                 >
-                  Gallery
+                  Galerie
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/team"
                   className="text-zinc-400 hover:text-gold-400 cursor-pointer transition-colors"
                 >
-                  Our Team
+                  Notre équipe
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/booking"
                   className="text-zinc-400 hover:text-gold-400 cursor-pointer transition-colors"
                 >
-                  Book Now
+                  Réserver maintenant
                 </Link>
               </li>
             </ul>
@@ -99,12 +99,13 @@ export const Footer = () => {
               NEWSLETTER
             </h3>
             <p className="text-zinc-400 mb-4">
-              Subscribe to receive updates, access to exclusive deals, and more.
+              Abonnez-vous pour recevoir des mises à jour, des offres exclusives
+              et plus encore.
             </p>
             <div className="relative w-full">
               <Input
                 className="bg-zinc-800 border-none text-white rounded-2xl h-10 pr-12"
-                placeholder="Enter your email "
+                placeholder="Entrez votre email"
               />
               <Button
                 variant="ghost"
@@ -117,13 +118,13 @@ export const Footer = () => {
             </div>
             <div className="flex space-x-4 mt-4">
               <Link
-                href="/"
+                href="https://www.facebook.com/naim.kchao/"
                 className="text-zinc-400 hover:text-gold-400 cursor-pointer transition-colors"
               >
                 <FacebookIcon />
               </Link>
               <Link
-                href="/"
+                href="https://www.instagram.com/naim_hair_stylist?igshid=12h6v7g0wyu67&fbclid=IwY2xjawLUoL5leHRuA2FlbQIxMABicmlkETE3bVBrVll4TldLS3ZUOW1aAR73HjyG08PmpoLuWCWSBq2L1NC6HnDvAg8EQOa2fOq4KT3knRAC7bsNNm54xg_aem_pEUpw0baH7ceHjhT59v8IQ"
                 className="text-zinc-400 hover:text-gold-400 cursor-pointer transition-colors"
               >
                 <InstagramIcon />
@@ -135,7 +136,7 @@ export const Footer = () => {
           <div className="flex flex-row text-zinc-500 text-sm px-2 items-center justify-center">
             <CopyrightIcon className="size-4" />
             <p className="ml-2">
-              2025 Naim Kchao Barbershop. All rights reserved.
+              2025 Naim Kchao Barbershop. Tous droits réservés.
             </p>
           </div>
         </div>

@@ -5,25 +5,40 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-
-import { CalendarIcon, MenuIcon, UserIcon, X } from "lucide-react";
+import {
+  CalendarIcon,
+  ImagesIcon,
+  MenuIcon,
+  ShoppingBagIcon,
+  UserIcon,
+  X,
+} from "lucide-react";
+import { useTRPC } from "@/trpc/client";
+import { useQuery } from "@tanstack/react-query";
 
 export const Navbar = () => {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const trpc = useTRPC();
+  const { data: session } = useQuery(trpc.auth.session.queryOptions());
+  const { data: user } = useQuery(
+    trpc.auth.getOne.queryOptions(undefined, { enabled: !!session?.user?.id })
+  );
 
   useEffect(() => {
     if (pathname === "/") {
-      setActiveTab("Home");
+      setActiveTab("Accueil");
     } else if (pathname === "/gallery") {
-      setActiveTab("Gallery");
+      setActiveTab("Galerie");
     } else if (pathname === "/services") {
       setActiveTab("Services");
     } else if (pathname === "/shop") {
-      setActiveTab("Shop");
+      setActiveTab("Boutique");
     } else if (pathname === "/team") {
-      setActiveTab("Team");
+      setActiveTab("Équipe");
+    } else if (pathname === "/dashboard") {
+      setActiveTab("Tableau de bord");
     }
   }, [pathname]);
 
@@ -31,22 +46,24 @@ export const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const isSuperAdmin = user?.roles?.includes("super-admin");
+
   return (
     <div className="w-full py-4 px-6 fixed top-0 left-0 right-0 z-50">
       <header className="max-w-8xl mx-auto bg-zinc-900/10 backdrop-blur-lg rounded-full px-12 py-2 shadow-gold-lg border border-gold-400/10">
-        {/* Desktop Header */}
+        {/* En-tête Desktop */}
         <div className="hidden lg:flex items-center justify-between">
-          {/* Left Navigation */}
+          {/* Navigation Gauche */}
           <nav className="flex items-center space-x-10">
             <Link
               href="/"
               className={`text-sm uppercase tracking-wider transition-colors duration-300 ${
-                activeTab === "Home"
+                activeTab === "Accueil"
                   ? "text-gold-400"
                   : "text-white hover:text-gold-400"
               }`}
             >
-              Home
+              Accueil
             </Link>
             <Link
               href="/services"
@@ -61,16 +78,16 @@ export const Navbar = () => {
             <Link
               href="/team"
               className={`text-sm uppercase tracking-wider transition-colors duration-300 ${
-                activeTab === "Team"
+                activeTab === "Équipe"
                   ? "text-gold-400"
                   : "text-white hover:text-gold-400"
               }`}
             >
-              Team
+              Équipe
             </Link>
           </nav>
 
-          {/* Center Logo */}
+          {/* Logo Central */}
           <div className="flex items-center justify-center">
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-b from-gold-400/20 to-gold-500/20 rounded-full blur-sm"></div>
@@ -88,43 +105,56 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {/* Right Navigation */}
+          {/* Navigation Droite */}
           <div className="flex items-center space-x-8">
             <nav className="flex items-center space-x-8">
               <Link
-                href="/shop"
-                className={`text-sm uppercase tracking-wider transition-colors duration-300 ${
-                  activeTab === "Shop"
-                    ? "text-gold-400"
-                    : "text-white hover:text-gold-400"
-                }`}
-              >
-                Shop
-              </Link>
-              <Link
                 href="/gallery"
                 className={`text-sm uppercase tracking-wider transition-colors duration-300 ${
-                  activeTab === "Gallery"
+                  activeTab === "Galerie"
                     ? "text-gold-400"
                     : "text-white hover:text-gold-400"
                 }`}
               >
-                Gallery
+                <ImagesIcon className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/shop"
+                className={`text-sm uppercase tracking-wider transition-colors duration-300 ${
+                  activeTab === "Boutique"
+                    ? "text-gold-400"
+                    : "text-white hover:text-gold-400"
+                }`}
+              >
+                <ShoppingBagIcon className="w-4 h-4" />
               </Link>
 
-              <Link href="/dashboard">
-                <button className="text-white hover:text-gold-400 transition-colors duration-300">
+              {isSuperAdmin ? (
+                <Link
+                  href="/dashboard"
+                  className={`text-sm uppercase tracking-wider transition-colors duration-300 ${
+                    activeTab === "Tableau de bord"
+                      ? "text-gold-400"
+                      : "text-white hover:text-gold-400"
+                  }`}
+                >
                   <UserIcon className="h-4 w-4" />
-                </button>
-              </Link>
+                </Link>
+              ) : (
+                <Link href="/login">
+                  <button className="text-white hover:text-gold-400 transition-colors duration-300">
+                    <UserIcon className="h-4 w-4" />
+                  </button>
+                </Link>
+              )}
             </nav>
             <Button className="bg-gradient-to-b from-gold-400 to-gold-500 hover:from-gold-500 hover:to-gold-600 text-white text-sm uppercase tracking-wider !rounded-full shadow-gold px-6">
-              <Link href="/booking">Book</Link>
+              <Link href="/booking">Réserver</Link>
             </Button>
           </div>
         </div>
 
-        {/* Mobile Header */}
+        {/* En-tête Mobile */}
         <div className="flex lg:hidden items-center justify-between">
           <div className="flex items-center">
             <Link href="/">
@@ -136,13 +166,6 @@ export const Navbar = () => {
                 className="mr-3"
               />
             </Link>
-            {/* <h1 className="text-gold-400 font-bold text-xl tracking-wider">
-              <Link href="/">Naim</Link>
-              <Link href="/" className="text-white">
-                {" "}
-                Kchaou
-              </Link>
-            </h1> */}
           </div>
           <div className="flex items-center space-x-4">
             <Link href="/booking">
@@ -150,11 +173,13 @@ export const Navbar = () => {
                 <CalendarIcon className="h-4 w-4" />
               </button>
             </Link>
-            <Link href="/dashboard">
-              <button className="text-white hover:text-gold-400 transition-colors duration-300">
-                <UserIcon className="h-4 w-4" />
-              </button>
-            </Link>
+            {!isSuperAdmin && (
+              <Link href="/login">
+                <button className="text-white hover:text-gold-400 transition-colors duration-300">
+                  <UserIcon className="h-4 w-4" />
+                </button>
+              </Link>
+            )}
             <Button
               variant="ghost"
               className="text-white"
@@ -166,7 +191,7 @@ export const Navbar = () => {
         </div>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Menu Mobile */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
@@ -190,13 +215,13 @@ export const Navbar = () => {
               <Link
                 href="/"
                 className={`text-sm uppercase tracking-wider py-2 ${
-                  activeTab === "Home"
+                  activeTab === "Accueil"
                     ? "text-gold-400"
                     : "text-white hover:text-gold-400"
                 }`}
                 onClick={toggleMobileMenu}
               >
-                Home
+                Accueil
               </Link>
               <Link
                 href="/services"
@@ -212,39 +237,52 @@ export const Navbar = () => {
               <Link
                 href="/team"
                 className={`text-sm uppercase tracking-wider py-2 ${
-                  activeTab === "Team"
+                  activeTab === "Équipe"
                     ? "text-gold-400"
                     : "text-white hover:text-gold-400"
                 }`}
                 onClick={toggleMobileMenu}
               >
-                Team
+                Équipe
               </Link>
               <Link
                 href="/shop"
                 className={`text-sm uppercase tracking-wider py-2 ${
-                  activeTab === "Shop"
+                  activeTab === "Boutique"
                     ? "text-gold-400"
                     : "text-white hover:text-gold-400"
                 }`}
                 onClick={toggleMobileMenu}
               >
-                Shop
+                Boutique
               </Link>
               <Link
                 href="/gallery"
                 className={`text-sm uppercase tracking-wider py-2 ${
-                  activeTab === "Gallery"
+                  activeTab === "Galerie"
                     ? "text-gold-400"
                     : "text-white hover:text-gold-400"
                 }`}
                 onClick={toggleMobileMenu}
               >
-                Gallery
+                Galerie
               </Link>
+              {isSuperAdmin && (
+                <Link
+                  href="/dashboard"
+                  className={`text-sm uppercase tracking-wider py-2 ${
+                    activeTab === "Tableau de bord"
+                      ? "text-gold-400"
+                      : "text-white hover:text-gold-400"
+                  }`}
+                  onClick={toggleMobileMenu}
+                >
+                  Tableau de bort
+                </Link>
+              )}
               <div className="pt-4">
                 <Button className="w-full bg-gradient-to-b from-gold-400 to-gold-500 hover:from-gold-500 hover:to-gold-600 text-white text-sm uppercase tracking-wider !rounded-full shadow-gold">
-                  <Link href="/booking">Book an appointment</Link>
+                  <Link href="/booking">Réserver un rendez-vous</Link>
                 </Button>
               </div>
             </nav>

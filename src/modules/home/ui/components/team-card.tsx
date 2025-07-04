@@ -54,7 +54,7 @@ const TeamCard: React.FC<TeamCardProps> = ({
                 className="text-white hover:text-gold-400 p-0 justify-start group"
                 onClick={onProfileClick}
               >
-                <Link href="/team">Go to profile</Link>
+                <Link href="/team">Voir Plus</Link>
               </Button>
             </div>
           </div>

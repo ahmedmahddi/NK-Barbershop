@@ -5,6 +5,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import TeamCard, { TeamCardProps } from "./team-card";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "lucide-react";
+import Link from "next/link";
 
 interface BackendTeamMember {
   id: number;
@@ -49,13 +50,15 @@ const Team = () => {
         <div className="flex items-center mb-12">
           <div className="w-12 h-1 bg-gold-400 mr-4"></div>
           <h2 className="text-4xl font-bold tracking-wider text-white">
-            OUR TALENTED BARBERS
+            NOTRE ÉQUIPE TALENTUEUSE
           </h2>
           <Button
             variant="ghost"
             className="ml-auto text-gold-400 hover:text-gold-500"
           >
-            <ArrowRightIcon className="text-2xl" />
+            <Link href="/team">
+              <ArrowRightIcon className="text-2xl" />
+            </Link>
           </Button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
