@@ -159,7 +159,7 @@ export const Navbar = () => {
           <div className="flex items-center">
             <Link href="/">
               <Image
-                src={"/images/logoNK.png"}
+                src={"/images/LogoNK.png"}
                 alt="logo"
                 width={48}
                 height={48}
