@@ -94,7 +94,7 @@ export const Navbar = () => {
               <div className="relative bg-zinc-900 rounded-full p-1">
                 <Link href="/">
                   <Image
-                    src={"/images/logoNK.png"}
+                    src={"/images/LogoNK.png"}
                     alt="logo"
                     width={48}
                     height={48}
