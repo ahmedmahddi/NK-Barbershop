@@ -105,7 +105,7 @@ export default function BookingPage() {
             description: "Confirmation envoyée par email !",
             
           });
-          router.push(`/confirmation/${id}`);
+          router.push(`/booking/confirmation/${id}`);
         } catch (error) {
           toast({
             title: "Échec de l'envoi de l'email",
