@@ -129,6 +129,50 @@ export const bookingRouter = createTRPCRouter({
         throw error;
       }
     }),
+  getBookingById: baseProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      try {
+        const booking = await ctx.db.findByID({
+          collection: "bookings",
+          id: input.id,
+          depth: 3,
+        });
+
+        if (!booking) {
+          throw new Error("Booking not found");
+        }
+
+        return {
+          id: booking.id,
+          customerName: booking.customerName,
+          customerEmail: booking.customerEmail,
+          phone: booking.phone,
+          service: booking.service,
+          price: (booking.service as Service).price ?? null,
+          barber: booking.barber,
+          start: booking.start,
+          end: booking.end,
+          comments: booking.comments ?? "",
+          referencePhoto: booking.referencePhoto
+            ? (booking.referencePhoto as Media).url
+            : "",
+          status: booking.status as
+            | "pending"
+            | "confirmed"
+            | "cancelled"
+            | "completed"
+            | "no_show",
+          agreement: booking.agreement,
+          createdAt: booking.createdAt,
+          updatedAt: booking.updatedAt,
+        };
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        throw new Error(`Failed to fetch booking: ${message}`);
+      }
+    }),
+
   getAll: baseProcedure.query(async ({ ctx }) => {
     const bookings = await ctx.db.find({
       collection: "bookings",

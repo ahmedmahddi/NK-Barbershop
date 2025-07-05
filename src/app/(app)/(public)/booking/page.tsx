@@ -31,11 +31,13 @@ import {
 import Link from "next/link";
 import { uploadReference } from "@/lib/uploadRefrence";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function BookingPage() {
   /* —— hooks —— */
 
   const { toast } = useToast();
+  const router= useRouter();
   const [date, setDate] = useState<Date>();
 
   /* —— tRPC hooks —— */
@@ -101,7 +103,9 @@ export default function BookingPage() {
           toast({
             title: "Réservé 🎉",
             description: "Confirmation envoyée par email !",
+            
           });
+          router.push(`/confirmation/${id}`);
         } catch (error) {
           toast({
             title: "Échec de l'envoi de l'email",
