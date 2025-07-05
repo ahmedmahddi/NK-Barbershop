@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "postinstall": "payload migrate --yes"
+    "postinstall": "payload migrate --yes",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
