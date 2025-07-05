@@ -5,10 +5,13 @@ import { AppSidebar } from "@/components/appSidebar";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { Menu } from "lucide-react";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getQueryClient } from "@/trpc/server";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isActive = (p: string) => pathname?.includes(p);
+  const queryClient = getQueryClient();
 
   return (
     <SidebarProvider>
@@ -45,9 +48,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         </header>
 
         {/* Zone de contenu */}
-        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
-          {children}
-        </main>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+            {children}
+          </main>
+        </HydrationBoundary>
       </div>
     </SidebarProvider>
   );
