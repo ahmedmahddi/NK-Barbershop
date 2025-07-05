@@ -178,7 +178,6 @@ const Booking = () => {
                       ))}
                     </SelectContent>
                   </Select>
-                  Achilles
                   {errors.serviceId && (
                     <span className="text-red-500 text-sm">
                       {errors.serviceId.message}
