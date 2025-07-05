@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "postinstall": "payload migrate --yes",
+    "generate:types": "payload generate:types",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
