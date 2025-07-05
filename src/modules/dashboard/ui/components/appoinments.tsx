@@ -29,7 +29,7 @@ const statusClass = (s: BookingStatus) =>
   })[s];
 
 // ----- Component -----
-export const dynamic = "force-dynamic";
+
 const AppointmentsPage: FC = () => {
   // Fetch bookings using TRPC
   const trpc = useTRPC();
