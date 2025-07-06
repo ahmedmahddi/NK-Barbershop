@@ -42,7 +42,7 @@ export default function BookingPage() {
 
   /* —— tRPC hooks —— */
   const trpc = useTRPC();
-  const servicesQ = useSuspenseQuery(trpc.booking.getServices.queryOptions());
+  const servicesQ = useSuspenseQuery(trpc.booking.getServices.queryOptions({limit:100}));
   const barbersQ = useSuspenseQuery(trpc.booking.getBarbers.queryOptions());
 
   /* —— form —— */
