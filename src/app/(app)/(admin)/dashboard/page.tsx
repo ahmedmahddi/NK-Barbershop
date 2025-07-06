@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
+import { Calendar, Users } from "lucide-react";
 
 export default function AdminDashboardPage() {
   const trpc = useTRPC();
@@ -35,18 +36,33 @@ export default function AdminDashboardPage() {
           </h2>
         </div>
 
-        <div className="flex space-x-2">
-          <Link href="/appointments">
-            <Button className="rounded-2xl border border-gold-400/30 text-white bg-zinc-800 hover:bg-gold-400/10">
-              Gérer les Rendez-vous
-            </Button>
-          </Link>
-          <Link href="/customers">
-            <Button className="rounded-2xl border border-gold-400/30 text-white bg-zinc-800 hover:bg-gold-400/10">
-              Voir les Clients
-            </Button>
-          </Link>
-        </div>
+       <div className="flex space-x-2">
+      {/* Appointments Button */}
+      <Link href="/appointments">
+        <Button
+          className="rounded-2xl border border-gold-400/30 text-white bg-zinc-800 hover:bg-gold-400/10
+                     sm:flex sm:items-center sm:justify-center
+                     sm:w-10 sm:h-10 sm:p-0
+                     md:w-auto md:h-auto md:px-4 md:py-2"
+        >
+          <Calendar className="w-5 h-5 sm:mr-0 md:mr-2" />
+          <span className="hidden md:inline">Gérer les Rendez-vous</span>
+        </Button>
+      </Link>
+
+      {/* Customers Button */}
+      <Link href="/customers">
+        <Button
+          className="rounded-2xl border border-gold-400/30 text-white bg-zinc-800 hover:bg-gold-400/10
+                     sm:flex sm:items-center sm:justify-center
+                     sm:w-10 sm:h-10 sm:p-0
+                     md:w-auto md:h-auto md:px-4 md:py-2"
+        >
+          <Users className="w-5 h-5 sm:mr-0 md:mr-2" />
+          <span className="hidden md:inline">Voir les Clients</span>
+        </Button>
+      </Link>
+    </div>
       </div>
 
       {/* Cartes de statistiques --------------------------------------------------- */}
