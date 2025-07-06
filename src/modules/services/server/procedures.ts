@@ -29,7 +29,7 @@ export const servicesRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const where = input?.slug ? { slug: { equals: input.slug } } : undefined;
-      const limit = input?.limit ?? 4; // Default to 4 for home page
+      const limit = input?.limit ?? 100; // Default to 4 for home page
       const services = await ctx.db.find({
         collection: "services",
         depth: 1,
