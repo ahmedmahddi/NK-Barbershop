@@ -15,7 +15,8 @@ const updateStatusInput = z.object({
 
 export const bookingRouter = createTRPCRouter({
   getServices: baseProcedure.query(async ({ ctx }) => {
-    const res = await ctx.db.find({ collection: "services", depth: 0 });
+    const res = await ctx.db.find({ collection: "services", depth: 0,where: {},
+    pagination: false, });
     return res.docs;
   }),
 
